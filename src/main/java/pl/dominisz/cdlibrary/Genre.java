@@ -9,6 +9,9 @@ public enum Genre {
     FOLK("folk"),
     AMBIENT("ambient"),
     INDIE("indie"),
+    ELECTRONIC("electronic"),
+    POP("pop"),
+    R_AND_B("R&B"),
     CLASSICAL("classical");
 
     private String description;
