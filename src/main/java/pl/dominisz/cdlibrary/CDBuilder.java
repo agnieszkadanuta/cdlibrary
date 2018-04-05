@@ -15,7 +15,6 @@ public class CDBuilder {
     private int discCount;
 
     public CDBuilder addTrack(Track track){
-        //dodać nowy track do listy
         tracks.add(track);
         return this;
     }

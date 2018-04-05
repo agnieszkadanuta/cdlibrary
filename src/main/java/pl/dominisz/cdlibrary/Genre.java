@@ -23,4 +23,8 @@ public enum Genre {
     Genre(String description){
         this.description = description;
     }
+
+    public static Genre fromDescription(String description){
+        return null;
+    }
 }
