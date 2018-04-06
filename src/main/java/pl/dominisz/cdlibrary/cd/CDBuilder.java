@@ -61,7 +61,7 @@ public class CDBuilder {
         if (tracks == null) {
             this.tracks = tracks;
         } else {
-            tracks.addAll(tracks);
+            this.tracks.addAll(tracks);
         }
             return this;
         }

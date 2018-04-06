@@ -33,15 +33,17 @@ public class CDReader {
         String producer = scanner.nextLine();
         Genre genre = readGenre();
         List<Track> tracks = readTracks();
-        System.out.println("Is original(yes/no");
+        System.out.println("Is original(yes/no)");
         boolean original = "yes".equals(scanner.nextLine());
         System.out.println("Disc count: ");
-        int discCount = scanner.nextInt();
+        int discCount = Integer.parseInt(scanner.nextLine());
+
 
         CD cd = new CDBuilder().setTitle(title)
                 .setArtist(artist).setReleaseYear(releaseYear)
                 .setProducer(producer).setGenre(genre)
                 .setOriginal(original).setDiscCount(discCount).setTracks(tracks).build();
+        cdLibrary.add(cd);
 
     }
 

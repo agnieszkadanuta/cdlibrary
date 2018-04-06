@@ -23,8 +23,9 @@ public class CDLibrary {
             PrintWriter out = new PrintWriter(FILENAME);
             out.println(CDs.size());
             for (CD cd:CDs) {
-                saveCDToFile(out, cd);
+                saveCDToFile(out,cd);
             }
+            out.close();
         } catch (FileNotFoundException e) {
             System.out.println("Cannot save file" + FILENAME);
         }
