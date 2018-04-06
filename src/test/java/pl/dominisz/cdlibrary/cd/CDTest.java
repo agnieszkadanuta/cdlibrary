@@ -1,7 +1,11 @@
-package pl.dominisz.cdlibrary;
+package pl.dominisz.cdlibrary.cd;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import pl.dominisz.cdlibrary.cd.CD;
+import pl.dominisz.cdlibrary.cd.CDBuilder;
+import pl.dominisz.cdlibrary.track.Track;
+import pl.dominisz.cdlibrary.track.TrackBuilder;
 
 public class CDTest {
 

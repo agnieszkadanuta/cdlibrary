@@ -1,7 +1,9 @@
-package pl.dominisz.cdlibrary;
+package pl.dominisz.cdlibrary.track;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import pl.dominisz.cdlibrary.Genre;
+import pl.dominisz.cdlibrary.track.Track;
+import pl.dominisz.cdlibrary.track.TrackBuilder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

@@ -1,4 +1,6 @@
-package pl.dominisz.cdlibrary;
+package pl.dominisz.cdlibrary.track;
+
+import pl.dominisz.cdlibrary.Genre;
 
 public class TrackBuilder {
 
