@@ -18,6 +18,9 @@ public class CDBuilder {
     private int discCount;
 
     public CDBuilder addTrack(Track track) {
+        if(tracks == null){
+            this.tracks = new ArrayList<>();
+        }
         tracks.add(track);
         return this;
     }
@@ -58,7 +61,7 @@ public class CDBuilder {
     }
 
     public CDBuilder setTracks(List<Track> tracks) {
-        if (tracks == null) {
+        if (this.tracks == null) {
             this.tracks = tracks;
         } else {
             this.tracks.addAll(tracks);

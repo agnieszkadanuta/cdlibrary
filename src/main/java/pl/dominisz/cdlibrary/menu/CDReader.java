@@ -28,7 +28,7 @@ public class CDReader {
         System.out.println("Artist: ");
         String artist = scanner.nextLine();
         System.out.println("Release year: ");
-        int releaseYear = scanner.nextInt();
+        int releaseYear = Integer.parseInt(scanner.nextLine());
         System.out.println("Producer: ");
         String producer = scanner.nextLine();
         Genre genre = readGenre();

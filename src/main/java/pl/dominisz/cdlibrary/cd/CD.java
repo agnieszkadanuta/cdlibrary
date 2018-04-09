@@ -2,13 +2,16 @@ package pl.dominisz.cdlibrary.cd;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
 import pl.dominisz.cdlibrary.Genre;
+import pl.dominisz.cdlibrary.TimeUtils;
 import pl.dominisz.cdlibrary.track.Track;
 
 import java.util.List;
 
 @Getter
 @AllArgsConstructor
+@ToString
 public class CD {
 
     //    * tytuł
@@ -43,5 +46,27 @@ public class CD {
         } else {
             return 0;
         }
+    }
+
+    @Override
+    public String toString() {
+        String result =  "CD: " +
+                "title: " + title +
+                ", artist: " + artist +
+                ", releaseYear: " + releaseYear +
+                ", producer: " + producer +
+                ", total time: " + TimeUtils.intTimeToString(getTotalTime()) +
+                ", genre: " + genre.getDescription() + "\n";
+        if(original){
+            result += "CD is original\n";
+        }
+        result += "discCount: " + discCount +
+                "\nTracks:\n";
+
+        for (int i = 0; i < tracks.size(); i++) {
+            result += (i + 1) +tracks.get(i).toString() + "\n";
+
+        }
+        return result;
     }
 }

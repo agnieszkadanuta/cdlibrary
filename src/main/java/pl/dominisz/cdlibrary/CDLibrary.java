@@ -1,12 +1,15 @@
 package pl.dominisz.cdlibrary;
 
 import pl.dominisz.cdlibrary.cd.CD;
+import pl.dominisz.cdlibrary.cd.CDBuilder;
 import pl.dominisz.cdlibrary.track.Track;
+import pl.dominisz.cdlibrary.track.TrackBuilder;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class CDLibrary {
 
@@ -34,7 +37,6 @@ public class CDLibrary {
     private void saveCDToFile(PrintWriter out, CD cd) {
         out.println(cd.getTitle());
         out.println(cd.getArtist());
-        out.println(cd.getTotalTime());
         out.println(cd.getGenre());
         out.println(cd.getReleaseYear());
         out.println(cd.getProducer());
@@ -56,14 +58,61 @@ public class CDLibrary {
 
     public void loadFromFile(){
 
+        try{
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(FILENAME));
+            String line = bufferedReader.readLine();
+            int count = Integer.parseInt(line);
+            for (int i = 0; i < count; i++) {
+                loadCDFromFile(bufferedReader);
+            }
+            bufferedReader.close();
+        }catch (IOException e){
+            System.out.println("Cannot load the file " + FILENAME);
+        }
+
     }
+
+    private void loadCDFromFile(BufferedReader bufferedReader) throws IOException {
+
+       CD cd = new CDBuilder().setTitle(bufferedReader.readLine()).setArtist(bufferedReader.readLine())
+               .setGenre(Genre.valueOf(bufferedReader.readLine())).setReleaseYear(Integer.parseInt(bufferedReader.readLine()))
+               .setProducer(bufferedReader.readLine()).setDiscCount(Integer.parseInt(bufferedReader.readLine()))
+               .setOriginal(Boolean.valueOf(bufferedReader.readLine())).setTracks(loadTracksFromFile(bufferedReader))
+               .build();
+       CDs.add(cd);
+
+    }
+
+    private List<Track> loadTracksFromFile(BufferedReader bufferedReader) throws IOException {
+        int count = Integer.parseInt(bufferedReader.readLine());
+        List<Track> tracks = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            Track track = loadTrackFromFile(bufferedReader);
+            tracks.add(track);
+        }
+    return tracks;
+    }
+
+    private Track loadTrackFromFile(BufferedReader bufferedReader) throws IOException {
+
+        return new TrackBuilder().setTitle(bufferedReader.readLine()).setTitle(bufferedReader.readLine())
+                .setTime(Integer.parseInt(bufferedReader.readLine())).setGenre(Genre.valueOf(bufferedReader.readLine()))
+                .buildTrack();
+    }
+
 
     public List<CD> getCDs() {
         return CDs;
     }
 
     public List<CD> findByArtist(String artist){
-        return new ArrayList<>();
+        String lowerCaseArtist = artist.toLowerCase();
+        return CDs.stream().filter(cd -> cd.getArtist()
+                .contains(lowerCaseArtist)).collect(Collectors.toList());
+    }
+
+    public Set<String> findAllArtist(){
+        return CDs.stream().map(cd -> cd.getArtist()).collect(Collectors.toSet());
     }
 
     //znajduje płyty o tytule zawierającym dany tekst
