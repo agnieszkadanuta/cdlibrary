@@ -27,11 +27,11 @@ public class CDReader {
         String title = scanner.nextLine();
         System.out.println("Artist: ");
         String artist = scanner.nextLine();
+        Genre genre = readGenre();
         System.out.println("Release year: ");
         int releaseYear = Integer.parseInt(scanner.nextLine());
         System.out.println("Producer: ");
         String producer = scanner.nextLine();
-        Genre genre = readGenre();
         List<Track> tracks = readTracks();
         System.out.println("Is original(yes/no)");
         boolean original = "yes".equals(scanner.nextLine());

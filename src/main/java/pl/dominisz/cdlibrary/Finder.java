@@ -2,6 +2,7 @@ package pl.dominisz.cdlibrary;
 
 import pl.dominisz.cdlibrary.cd.CD;
 import pl.dominisz.cdlibrary.menu.CDDisplay;
+import pl.dominisz.cdlibrary.track.Track;
 
 import java.util.List;
 import java.util.Scanner;
@@ -40,6 +41,19 @@ public class Finder {
         List<CD> cds = cdLibrary.findByTitle(title);
         System.out.println("All CDs titled: " + title);
         CDDisplay.show(cds);
+
+    }
+
+
+    public void findTrackByTitle() {
+        System.out.println("Enter track title: ");
+        String title = scanner.nextLine();
+        List<Track> tracks = cdLibrary.findTrackByTitle(title);
+        tracks.forEach(track -> System.out.println(track));
+    }
+
+    public void findCDsByTrackTitle() {
+
 
     }
 }

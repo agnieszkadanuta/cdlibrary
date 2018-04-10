@@ -1,5 +1,6 @@
 package pl.dominisz.cdlibrary;
 
+import lombok.EqualsAndHashCode;
 import pl.dominisz.cdlibrary.cd.CD;
 import pl.dominisz.cdlibrary.cd.CDBuilder;
 import pl.dominisz.cdlibrary.track.Track;
@@ -11,26 +12,28 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@EqualsAndHashCode
 public class CDLibrary {
 
-    private static final String FILENAME = "cdlibrary.txt" ;
+    private static final String FILENAME = "cdlibrary.txt";
     private List<CD> CDs = new ArrayList<>();
+    private List<Track> tracks = new ArrayList<>();
 
-    public void add(CD cd){
+    public void add(CD cd) {
         CDs.add(cd);
     }
 
-    public void saveToFile(){
+    public void saveToFile(String filename) {
 
         try {
-            PrintWriter out = new PrintWriter(FILENAME);
+            PrintWriter out = new PrintWriter(filename);
             out.println(CDs.size());
-            for (CD cd:CDs) {
-                saveCDToFile(out,cd);
+            for (CD cd : CDs) {
+                saveCDToFile(out, cd);
             }
             out.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Cannot save file" + FILENAME);
+            System.out.println("Cannot save file" + filename);
         }
     }
 
@@ -44,7 +47,7 @@ public class CDLibrary {
         out.println(cd.isOriginal());
         out.println(cd.getTracks().size());
 
-        for(Track track : cd.getTracks()){
+        for (Track track : cd.getTracks()) {
             saveTrackToFile(out, track);
         }
     }
@@ -56,30 +59,30 @@ public class CDLibrary {
         out.println(track.getGenre());
     }
 
-    public void loadFromFile(){
+    public void loadFromFile(String filename) {
 
-        try{
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(FILENAME));
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(filename));
             String line = bufferedReader.readLine();
             int count = Integer.parseInt(line);
             for (int i = 0; i < count; i++) {
                 loadCDFromFile(bufferedReader);
             }
             bufferedReader.close();
-        }catch (IOException e){
-            System.out.println("Cannot load the file " + FILENAME);
+        } catch (IOException e) {
+            System.out.println("Cannot load the file " + filename);
         }
 
     }
 
     private void loadCDFromFile(BufferedReader bufferedReader) throws IOException {
 
-       CD cd = new CDBuilder().setTitle(bufferedReader.readLine()).setArtist(bufferedReader.readLine())
-               .setGenre(Genre.valueOf(bufferedReader.readLine())).setReleaseYear(Integer.parseInt(bufferedReader.readLine()))
-               .setProducer(bufferedReader.readLine()).setDiscCount(Integer.parseInt(bufferedReader.readLine()))
-               .setOriginal(Boolean.valueOf(bufferedReader.readLine())).setTracks(loadTracksFromFile(bufferedReader))
-               .build();
-       CDs.add(cd);
+        CD cd = new CDBuilder().setTitle(bufferedReader.readLine()).setArtist(bufferedReader.readLine())
+                .setGenre(Genre.valueOf(bufferedReader.readLine())).setReleaseYear(Integer.parseInt(bufferedReader.readLine()))
+                .setProducer(bufferedReader.readLine()).setDiscCount(Integer.parseInt(bufferedReader.readLine()))
+                .setOriginal(Boolean.valueOf(bufferedReader.readLine())).setTracks(loadTracksFromFile(bufferedReader))
+                .build();
+        CDs.add(cd);
 
     }
 
@@ -90,12 +93,12 @@ public class CDLibrary {
             Track track = loadTrackFromFile(bufferedReader);
             tracks.add(track);
         }
-    return tracks;
+        return tracks;
     }
 
     private Track loadTrackFromFile(BufferedReader bufferedReader) throws IOException {
 
-        return new TrackBuilder().setTitle(bufferedReader.readLine()).setTitle(bufferedReader.readLine())
+        return new TrackBuilder().setTitle(bufferedReader.readLine()).setArtist(bufferedReader.readLine())
                 .setTime(Integer.parseInt(bufferedReader.readLine())).setGenre(Genre.valueOf(bufferedReader.readLine()))
                 .buildTrack();
     }
@@ -105,33 +108,37 @@ public class CDLibrary {
         return CDs;
     }
 
-    public List<CD> findByArtist(String artist){
+    public List<CD> findByArtist(String artist) {
         String lowerCaseArtist = artist.toLowerCase();
-        return CDs.stream().filter(cd -> cd.getArtist()
+        return CDs.stream().filter(cd -> cd.getArtist().toLowerCase()
                 .contains(lowerCaseArtist)).collect(Collectors.toList());
     }
 
-    public Set<String> findAllArtist(){
+    public Set<String> findAllArtist() {
         return CDs.stream().map(cd -> cd.getArtist()).collect(Collectors.toSet());
     }
 
     //znajduje płyty o tytule zawierającym dany tekst
-    public List<CD> findByTitle(String title){
+    public List<CD> findByTitle(String title) {
         String lowerCaseTitle = title.toLowerCase();
         return CDs.stream().filter(cd -> cd.getTitle().contains(lowerCaseTitle)).collect(Collectors.toList());
 
     }
 
-    public List<Track> findTrackByTitle(String title){
-        return new ArrayList<>();
+    public List<Track> findTrackByTitle(String title) {
+        String titletolowercase = title.toLowerCase();
+        return CDs.stream().flatMap(cd -> cd.getTracks().stream().filter(track -> track.getTitle()
+                .contains(titletolowercase))).collect(Collectors.toList());
     }
 
-    public List<CD> findCDByTrackTitle(String title){
-        return new ArrayList<>();
+    public List<CD> findCDByTrackTitle(String title) {
+        String titletolowercase = title.toLowerCase();
+        return CDs.stream().filter(cd->cd.getTracks().stream()
+                .anyMatch(track -> track.getTitle().contains(titletolowercase))).collect(Collectors.toList());
     }
 
-    public List<CD> findByGenre(Genre genre){
-        return new ArrayList<>();
+    public List<CD> findByGenre(Genre genre) {
+        return CDs.stream().filter(cd -> cd.getGenre().equals(genre)).collect(Collectors.toList());
     }
 
 

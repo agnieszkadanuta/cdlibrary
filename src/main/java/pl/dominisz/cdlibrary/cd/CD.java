@@ -1,6 +1,7 @@
 package pl.dominisz.cdlibrary.cd;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import pl.dominisz.cdlibrary.Genre;
@@ -12,6 +13,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @ToString
+@EqualsAndHashCode
 public class CD {
 
     //    * tytuł
