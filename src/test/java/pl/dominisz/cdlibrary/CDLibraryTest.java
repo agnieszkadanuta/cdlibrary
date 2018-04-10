@@ -185,8 +185,5 @@ public class CDLibraryTest {
         newCDLibrary.add(newCD);
         assertEquals(1, newCDLibrary.getCDs().size());
         assertEquals(newCD, newCDLibrary.getCDs().get(0));
-
-
     }
-
 }
