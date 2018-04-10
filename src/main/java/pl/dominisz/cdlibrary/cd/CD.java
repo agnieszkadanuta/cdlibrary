@@ -8,7 +8,9 @@ import pl.dominisz.cdlibrary.Genre;
 import pl.dominisz.cdlibrary.TimeUtils;
 import pl.dominisz.cdlibrary.track.Track;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @AllArgsConstructor
@@ -28,7 +30,6 @@ public class CD {
     private String artist;
     private int releaseYear;
     private String producer;
-    private Genre genre;
     private List<Track> tracks;
     private boolean original;
     private int discCount;
@@ -57,8 +58,8 @@ public class CD {
                 ", artist: " + artist +
                 ", releaseYear: " + releaseYear +
                 ", producer: " + producer +
-                ", total time: " + TimeUtils.intTimeToString(getTotalTime()) +
-                ", genre: " + genre.getDescription() + "\n";
+                ", total time: " + TimeUtils.intTimeToString(getTotalTime());
+                //TODO ", genre: " + genre.getDescription() + "\n";
         if(original){
             result += "CD is original\n";
         }
@@ -70,5 +71,9 @@ public class CD {
 
         }
         return result;
+    }
+
+    public Set<Genre> getGenres() {
+        return new HashSet<>();
     }
 }

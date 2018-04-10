@@ -41,7 +41,7 @@ public class CDReader {
 
         CD cd = new CDBuilder().setTitle(title)
                 .setArtist(artist).setReleaseYear(releaseYear)
-                .setProducer(producer).setGenre(genre)
+                .setProducer(producer)
                 .setOriginal(original).setDiscCount(discCount).setTracks(tracks).build();
         cdLibrary.add(cd);
 

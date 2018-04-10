@@ -40,7 +40,6 @@ public class CDLibrary {
     private void saveCDToFile(PrintWriter out, CD cd) {
         out.println(cd.getTitle());
         out.println(cd.getArtist());
-        out.println(cd.getGenre());
         out.println(cd.getReleaseYear());
         out.println(cd.getProducer());
         out.println(cd.getDiscCount());
@@ -78,7 +77,7 @@ public class CDLibrary {
     private void loadCDFromFile(BufferedReader bufferedReader) throws IOException {
 
         CD cd = new CDBuilder().setTitle(bufferedReader.readLine()).setArtist(bufferedReader.readLine())
-                .setGenre(Genre.valueOf(bufferedReader.readLine())).setReleaseYear(Integer.parseInt(bufferedReader.readLine()))
+                .setReleaseYear(Integer.parseInt(bufferedReader.readLine()))
                 .setProducer(bufferedReader.readLine()).setDiscCount(Integer.parseInt(bufferedReader.readLine()))
                 .setOriginal(Boolean.valueOf(bufferedReader.readLine())).setTracks(loadTracksFromFile(bufferedReader))
                 .build();
@@ -138,7 +137,7 @@ public class CDLibrary {
     }
 
     public List<CD> findByGenre(Genre genre) {
-        return CDs.stream().filter(cd -> cd.getGenre().equals(genre)).collect(Collectors.toList());
+        return CDs.stream().filter(cd -> cd.getGenres().contains(genre)).collect(Collectors.toList());
     }
 
 

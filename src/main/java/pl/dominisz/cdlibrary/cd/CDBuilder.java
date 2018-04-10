@@ -12,7 +12,7 @@ public class CDBuilder {
     private String artist;
     private int releaseYear;
     private String producer;
-    private Genre genre;
+    //private Genre genre;
     private List<Track> tracks = new ArrayList<>();
     private boolean original;
     private int discCount;
@@ -45,10 +45,10 @@ public class CDBuilder {
         return this;
     }
 
-    public CDBuilder setGenre(Genre genre) {
+    /*public CDBuilder setGenre(Genre genre) {
         this.genre = genre;
         return this;
-    }
+    }*/
 
     public CDBuilder setOriginal(boolean original) {
         this.original = original;
@@ -69,7 +69,8 @@ public class CDBuilder {
             return this;
         }
 
+    //TODO setGenre, setGenres
         public CD build () {
-            return new CD(title, artist, releaseYear, producer, genre, tracks, original, discCount);
+            return new CD(title, artist, releaseYear, producer, tracks, original, discCount);
         }
     }

@@ -61,7 +61,7 @@ public class CDLibraryTest {
     private CD createCD(String str){
         String[] elements = str.split(";");
         return new CDBuilder().setTitle(elements[0]).setArtist(elements[1]).setReleaseYear(Integer.parseInt(elements[2])).setProducer(elements[3])
-                .setGenre(Genre.valueOf(elements[4])).setOriginal("true".equals(elements[5])).setDiscCount(Integer.parseInt(elements[6])).build();
+                .setOriginal("true".equals(elements[5])).setDiscCount(Integer.parseInt(elements[6])).build();
     }
 
     private Track createTrack(String str){
@@ -76,7 +76,7 @@ public class CDLibraryTest {
 
         List<CD> result = cdLibrary.findByGenre(Genre.FOLK);
         assertEquals(1, result.size());
-        assertEquals(Genre.FOLK, result.get(0).getGenre());
+        assertTrue(result.get(0).getGenres().contains(Genre.FOLK));
 
     }
 
@@ -86,7 +86,7 @@ public class CDLibraryTest {
 
         List<CD> result = cdLibrary.findByGenre(Genre.AMBIENT);
         assertEquals(2, result.size());
-        assertEquals(Genre.AMBIENT, result.get(0).getGenre());
+        assertTrue(result.get(0).getGenres().contains(Genre.AMBIENT));
 
     }
 
